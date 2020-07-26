@@ -7,8 +7,9 @@ using namespace std;
 class Solution {
 public:
     vector<int> topKFrequent(vector<int>& nums, int k) {
+        //store the frequency of each number
         unordered_map<int, int>freq;
-        int max = 1;
+        //sorted frequency array
         vector<int>sortFreq;
         sortFreq.push_back(1);
         for (auto num : nums) {
@@ -19,11 +20,13 @@ public:
         }
         sort(sortFreq.begin(), sortFreq.end());
         unordered_set<int>rec;
+        //rec contains k highest frequency in reverse order
         for (int i = 0; i < k; ++i) {
             rec.insert(sortFreq[sortFreq.size() - 1 - i]);
         }
         sortFreq.clear();
         for (auto elem : freq) {
+            // check if element's frequency matches that of rec
             if (rec.find(elem.second) != rec.end()) {
                 sortFreq.push_back(elem.first);
             }
